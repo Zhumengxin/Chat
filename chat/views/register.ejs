@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Paykitty </title>
+
+    <!-- Bootstrap -->
+    <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="/stylesheets/font-awesome.min.css" rel="stylesheet">
+    <!-- Animate.css -->
+    <link href="/stylesheets/animate.min.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="/stylesheets/custom.min.css" rel="stylesheet">
+  </head>
+<style type="text/css">
+body {
+    background-image:linear-gradient(bottom, #FFFFFF 0%, #FFFFF0 100%);
+    background-image:-o-linear-gradient(bottom, #6699FF 0%, #6699FF 100%);
+    background-image:-moz-linear-gradient(bottom, #FFFFFF 0%, #FFFFF0 100%);
+    background-image:-webkit-linear-gradient(bottom, #FFFFFF 0%, #FFFFF0 100%);
+    background-image:-ms-linear-gradient(bottom, #6699FF 0%, #6699FF 100%);
+    
+
+
+}
+.radio-group{
+    margin-bottom: 15px;
+    
+}
+
+</style>
+
+  <body class="login">
+    <div>
+      <a class="hiddenanchor" id="signup"></a>
+      <a class="hiddenanchor" id="signin"></a>
+
+      <div class="login_wrapper">
+        <div class="animate form login_form">
+          <section class="login_content">
+            <div class='form'>
+            <form class="form-horizontal" action="" method='post'>
+              <h1>Welcome to Register</h1>
+              <div class="form-group">
+                    <div class="col-xs-12">
+                        <div class="input-group">
+                            <span class="input-group-addon">UserName</span>
+                             <input type="text" class="form-control" name="Reguser" id="username" placeholder="NickName" autocomplete="off" />
+                        </div>
+                    </div>
+              </div>
+              
+                    <div class="form-group">
+                    <div class="col-xs-12">
+                        <div class="input-group">
+                            <span class="input-group-addon">PassWord&nbsp;</span>
+                          <input type="password" name="Regpass" placeholder="Password..." class="form-password form-control" id="password">
+                        </div>
+                    </div>
+                    </div>
+
+                    <div class="form-group">
+                    <div class="col-xs-12">
+                        <div class="input-group">
+                            <span class="input-group-addon">&nbsp;&nbsp;&nbsp;Check&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            <input type="password" name="Regrepass" placeholder="Password..." class="form-password form-control" id="repassword">
+                        </div>
+                    </div>
+                    </div>
+
+                    <div class="form-group">
+                    <div class="col-xs-12">
+                        <div class="input-group">
+                            <span class="input-group-addon">RealName&nbsp;</span>
+                            <input type="text" name="Regname" placeholder="RealName..." class="form-username form-control" id="Regname">
+                        </div>
+                    </div>
+                    </div>
+
+                    <div class="form-group">
+                    <div class="col-xs-12">
+                        <div class="input-group">
+                            <span class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;Phone&nbsp;&nbsp;&nbsp;</span>
+                            <input type="text" name="Regmobi" placeholder="Phone..." class="form-username form-control" id="Regmobi">
+                        </div>
+                    </div>
+                    </div>
+
+                
+                    <div class="form-group">
+                    <div class="col-xs-12">
+                        <div class="input-group">
+                            <span class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;E-mail&nbsp;&nbsp;&nbsp;</span>
+                            <input type="text" name="Regemail" placeholder="Email..." class="form-username form-control" id="Regemail">
+                        </div>
+                    </div>
+                    </div>
+
+                   
+
+                    <div class="form-group form-actions">
+                    <div class="col-lg-12  ">
+                        <button type="submit" class="btn btn-priamry btn-block btn-info"> Register</button>
+                    </div>
+                    </div>
+                    <p align="center"><font color="red"><%= error %></font></p>
+              <div class="clearfix"></div>
+
+              <div class="separator">
+
+                <div class="clearfix"></div>
+                
+
+                <div>
+                  <h1><span class="glyphicon glyphicon-leaf" style="font-size: 26px;"></span> Chat</h1>
+                </div>
+              </div>
+            </form>
+          </div>
+          </section>
+        </div>
+
+      </div>
+    </div>
+  </body>
+</html>

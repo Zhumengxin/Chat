@@ -14,23 +14,27 @@
     </style>
   </head>
   <body>
+    <div>
     <ul id="messages"></ul>
     <form action="">
       <input id="m" autocomplete="off" /><button>Send</button>
     </form>
-    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+  </div>
+    <script src="/stylesheets/socket.io-1.2.0.js"></script>
+    <script src="/stylesheets/jquery-1.11.1.js"></script>
     <script>
       var socket = io();
+      var from = 123;
       $('form').submit(function(){
-        socket.emit('chat message', $('#m').val());
+        socket.emit('new user',from);
+        socket.emit('private message', $('#m').val());
         $('#messages').append($('<li>').text($('#m').val()));
         $('#m').val('');
 
         return false;
       });
-      socket.on('chat message', function(msg){
-        $('#messages').append($('<li>').text(msg));
+      socket.on('to:'+from, function(data){
+        $('#messages').append($('<li>').text(data));
       });
     </script>
   </body>

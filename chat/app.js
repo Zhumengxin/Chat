@@ -4,9 +4,11 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var register = require('./routes/register');
 
 var app = express();
 var server = require('http').Server(app);
@@ -23,11 +25,20 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(session({
+  secret: 'zmx',
+  name: 'cookiespace',
+  coolie: {maxAge: 600000},
+  resave: true,
+  saveUnitialized: true
+}));
 
 app.use('/', routes);
 app.use('/users', users);
-
+app.use('/register',register);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
@@ -36,17 +47,34 @@ app.use(function(req, res, next) {
 });
 
 //socket code
+var users = { };
+
 io.on('connection', function(socket){
   console.log('a user connected');
+
+  socket.on('new user',function(data){
+     if(data in users){
+         
+     }else{
+        var nickname = data;
+        users[nickname]= socket;
+     }
+     console.info(users);
+  });
+
+
   socket.on('chat message',function(msg){
     io.emit('chat message',msg);
     console.log(msg);
   });
 });
 
+
+
+
 io.on('disconnection',function(socket){
   console.log('a user leaved');
-})
+});
 
 
 

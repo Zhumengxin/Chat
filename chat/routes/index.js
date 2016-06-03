@@ -35,7 +35,7 @@ router.route('/')
                     req.session.user = user.AccountID.toString();
                     //req.session.name = user.AccountName.toString();
                     //console.log(user.AccountID);
-                    res.redirect('/users');
+                    res.redirect('/users?accountid='+user.AccountID);
                     
                 } else {
                     var err = "用户密码错误！";

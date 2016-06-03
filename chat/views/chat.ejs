@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
   <head>
-    <title>Socket.IO chat</title>
+    <title>Chat</title>
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
       body { font: 13px Helvetica, Arial; }
@@ -15,6 +15,7 @@
   </head>
   <body>
     <div>
+      <div id="from"><%= AccountID %></div>
     <ul id="messages"></ul>
     <form action="">
       <input id="m" autocomplete="off" /><button>Send</button>
@@ -24,17 +25,22 @@
     <script src="/stylesheets/jquery-1.11.1.js"></script>
     <script>
       var socket = io();
-      var from = 123;
+      var from;
+      from = $('#from').html();
+      socket.emit('new user',from);
+      var to = 2;
       $('form').submit(function(){
-        socket.emit('new user',from);
-        socket.emit('private message', $('#m').val());
+       
+       
+        socket.emit('private message', from, to, $('#m').val());
         $('#messages').append($('<li>').text($('#m').val()));
         $('#m').val('');
 
         return false;
       });
       socket.on('to:'+from, function(data){
-        $('#messages').append($('<li>').text(data));
+        console.log(data);
+        $('#messages').append('<li>'+data.from+'说'+data.message+'</li><li>');
       });
     </script>
   </body>

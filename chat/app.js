@@ -52,21 +52,28 @@ var users = { };
 io.on('connection', function(socket){
   console.log('a user connected');
 
-  socket.on('new user',function(data){
+   socket.on('new user',function(data){
      if(data in users){
          
      }else{
-        var nickname = data;
-        users[nickname]= socket;
+        var accountid = data;
+        users[accountid]= socket;
+        console.log(accountid);
      }
-     console.info(users);
+     //console.log(users);
   });
 
 
-  socket.on('chat message',function(msg){
-    io.emit('chat message',msg);
-    console.log(msg);
+
+  socket.on('private message',function(from, to, msg){
+    console.log('I received a private message by ', from, ' say to ',to, msg);
+    if(to in users){
+      console.log(to);
+        users[to].emit('to:'+to,{message:msg,from:from});
+    }
   });
+  
+ 
 });
 
 

@@ -58,19 +58,22 @@ io.on('connection', function(socket){
      }else{
         var accountid = data;
         users[accountid]= socket;
-        console.log(accountid);
+        console.log("new "+accountid+" "+ typeof(accountid));
      }
-     //console.log(users);
+     //console.log(data);
   });
 
 
 
   socket.on('private message',function(from, to, msg){
     console.log('I received a private message by ', from, ' say to ',to, msg);
+    
     if(to in users){
       console.log(to);
         users[to].emit('to:'+to,{message:msg,from:from});
     }
+    else
+      console.log("offline");
   });
   
  

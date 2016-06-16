@@ -29,7 +29,7 @@
               <div id="collapseOne" class="panel-collapse collapse in">
                 <div >
                     <ul class="list-group">
-                        <li class="list-group-item">ads</li>
+                        <li class="list-group-item"><%= Group[0]%></li>
                         <li class="list-group-item">ads</li>
                         <li class="list-group-item">ads</li>
                     </ul>
@@ -87,7 +87,7 @@
     <script>
       var socket = io();
       var from;
-      from = $('#from').html();
+      from = parseInt($('#from').html());
       socket.emit('new user',from);
       var to = 2;
       $('form').submit(function(){
@@ -101,7 +101,7 @@
       });
       socket.on('to:'+from, function(data){
         console.log(data);
-        $('#messages').append('<li class="left_message">'+data.from+'说'+data.message+'</li><li>');
+        $('#messages').append('<li class="left_message">'+data.message+'</li>');
       });
     </script>
   </body>

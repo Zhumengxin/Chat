@@ -58,7 +58,7 @@ router.route('/')
 
         User.getUserByEmail(newUser.email, function (err, user) { 
             if (user) 
-              err = '邮箱已经存在！'; 
+              err = '邮箱已经存在！';
             if (err) { 
                 res.render('register', { error : err}); 
                 return;
@@ -67,11 +67,14 @@ router.route('/')
                 if (err) { 
                     return  res.redirect('register'); 
                 } 
-                User.getUserByName(newUser.name, function (err, user) {
-                    req.session.user = user.AccountID.toString();
 
-                    console.log(req.session.user);
-                    res.redirect('/users');
+                User.getUserByName(newUser.name, function (err, user) {
+                   
+                    req.session.user = user.AccountID.toString();
+                    User.AddGroup(user.AccountID,"Deafult");
+
+                    res.redirect('/users?accountid='+user.AccountID);
+                    
                 }); 
             });
 

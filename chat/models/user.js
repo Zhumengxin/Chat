@@ -133,25 +133,35 @@ User.delAccount = function delAccount(accountID) {
 
 };
 
-User.addMoney = function addMoney(accountID, amount,callback) {
-    var sql = "update UserAccount set Balance=Balance+"+amount+" where AccountID='"+accountID+"'";
-    //console.log(sql);
-    mysql.query(sql,function(err,results,fields){
-        //console.log("hahahahhaa");
-        //console.log(results);
-        callback(err,results);
-    })
-
+User.AddGroup = function addgroup(accountID,GroupName) {
+    var sql ="insert into GroupList (MasterID,GroupName) values(?,?)";
+    mysql.query(sql,[accountID,GroupName],function(err,results,fields){
+        if (err) {
+            //throw err;
+        } else {
+            return;// callback(err);
+        }
+    });
 };
 
-User.subMoney = function subMoney(accountID, amount,callback) {
-    var sql = "update UserAccount set Balance=Balance-"+amount+" where AccountID='"+accountID+"'";
-    console.log('----------subMoney-----------------');
+User.GetGroup = function getgroup(accountID,callback){
+    var sql = "select * from GroupList where MasterID="+accountID;
+    var group = [];
     mysql.query(sql,function(err,results,fields){
-        //console.log(results);
-        callback(err,results);
+        if (err) {
+            //throw err;
+            console.log("getgroup error");
+        } else {
+            result = [];
+           // var i ;
+            //console.log("hahha"+results);
+            for (var i in results){
+                //console.log("hahaha"+results[i].MasterID);
+                result[i] = results[i].GroupID;
+            }
+            callback(result);
+        }
     })
-
 };
 
 

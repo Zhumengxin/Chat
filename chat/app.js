@@ -9,6 +9,7 @@ var session = require('express-session');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var register = require('./routes/register');
+var search = require('./routes/search')
 
 var app = express();
 var server = require('http').Server(app);
@@ -39,6 +40,7 @@ app.use(session({
 app.use('/', routes);
 app.use('/users', users);
 app.use('/register',register);
+app.use('/searchfriend',search);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

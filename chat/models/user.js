@@ -164,6 +164,156 @@ User.GetGroup = function getgroup(accountID,callback){
     })
 };
 
+User.FindFriend = function findfriend(friendname,callback){
+    var sql =  "select * from UserAccount where AccountName like '%"+friendname+"%'";
+    mysql.query(sql,function(err,results,fields){
+        if(err){
+            
+        }
+       // console.log(sql);
+        result = [];
+        for(var i in results){
+            result[i] = results[i].AccountName;  
+            //console.log(results[i]);
+        }
+        //console.info(result);
+        callback(err,result);
+    });
+};
+
+User.AddFriend = function addfriend(accountid,friendname,myname,callback){
+    var sql= "select * from UserAccount where AccountName ='"+friendname+"'";
+    console.log(sql);
+    var friendid;
+    var groupid;
+    mysql.query(sql,function(err,results,fields){
+        if(err)
+            throw err;
+        friendid = results[0].AccountID;
+        //console.log("friendid:"+friendid);
+        sql = "select * from GroupList where MasterID = "+accountid+" ORDER BY GroupID";
+        mysql.query(sql,function(err,results,fields){
+            groupid = results[0].GroupID;
+            //console.log("group:"+groupid);
+            sql = "insert into FriendList values("+accountid+","+friendid+",'"+friendname+"',"+groupid+")";
+            mysql.query(sql,function(err,results,fields){
+                if(err){
+                    console.log("addfriend fail");
+                    return callback(false);
+                }
+                else{
+                    sql = "select * from GroupList where MasterID = "+friendid+" ORDER BY GroupID";
+                    mysql.query(sql,function(err,results,fields){
+                        groupid = results[0].GroupID;
+                        sql = "insert into FriendList values("+friendid+","+accountid+",'"+myname+"',"+groupid+")";
+                        mysql.query(sql,function(err,results,fields){
+                            if(err){
+                                console.log("addfriend fail");
+                                return callback(false);
+                            }
+                            else 
+                                return callback(true); 
+                        });
+                    });
+                }
+            });
+        });
+    });
+    
+}
+
+User.getFriendByGroup = function getFriendByGroup(groupid){
+   // var sql = "select * from FriendList where GroupID ="+groupid;
+    var result = [];
+    mysql.query(sql,function(err,results,fields){
+        for(var i in results){
+            result[i] = results[i].SlaveID;
+        }
+    });
+    //console.info(result);
+    return result;
+};
+
+
+User.GetFriend = function getfriend(accountid,callback){
+    var friendlist = new Map();    //the format is "groupid":[{'id':1,'name':'zmx'},{...},{...}]
+    var group = [];
+    var groupidarray= []; // it stores the group id
+    var groupname = new Map();   //the format is {groupid:groupname};
+    var groupid;
+    var groupid_string;
+    var sql = "select * from GroupList where MasterID="+accountid;
+    mysql.query(sql,function(err,results,fields){
+        for(var i in results){
+            
+            groupid = results[i].GroupID;
+            groupidarray.push(groupid);
+            groupid_string = groupid.toString();
+            groupname.set(groupid_string,results[i].GroupName);
+        }
+        sql = "select * from FriendList where MasterID ="+accountid+ " ORDER BY GroupID";
+        mysql.query(sql,function(err,results,fields){
+            groupid = 0;
+            for(var i in results){
+                if(results[i].GroupID == groupid){
+                    //console.log("1");
+                    group.push({'id':results[i].SlaveID,'name':results[i].FriendName});
+                    
+                }
+                else{
+                    if(group.length != 0){
+                       // console.log("2");
+                        //console.log(groupid);
+                        groupid_string = groupid.toString();
+                        friendlist.set(groupid_string,group);
+                        group = [];
+                        groupid = results[i].GroupID;
+                        group.push({'id':results[i].SlaveID,'name':results[i].FriendName});
+                    }
+                    else{
+                       // console.log("3");
+                       // groupid = results[i].GroupID;
+                        console.log(groupid);
+                        group.push({'id':results[i].SlaveID,'name':results[i].FriendName});
+                    }
+                }
+            }
+            friendlist.set(groupid_string,group);
+            //
+            //console.log(friendlist);
+            
+            callback(groupidarray,groupname,friendlist);
+        });
+    });
+   
+}
+
+User.CheckFriend = function CheckFriend(accountid,friendname,callback){
+    var sql = "select  * from UserAccount where AccountName ='"+friendname+"'";
+    var friendid;
+    //console.log(sql);
+    mysql.query(sql, function(err,results,fields){
+        if(err)
+            //console.log(err);
+            throw err;
+        else
+            friendid = results[0].AccountID;
+        if(friendid == accountid)
+            return callback(false);
+        sql = "select * from FriendList where MasterID = "+accountid+" and SlaveID = "+friendid;
+        mysql.query(sql,function(err,results,fields){
+            if(err)
+                console.log(err);
+            else if(results.length == 0)
+                return callback(true);
+            else
+                return callback(false);
+    });
+
+    });
+    
+    
+};
 
 User.getTotalMessage = function getTotalMessage(accountID, callback) {
     var sql = "select * from UserMessage where AccountID='"+accountID+"'";

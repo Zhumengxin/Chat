@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Chat</title>
+    <link rel="stylesheet" href="/stylesheets/style.css"  type="text/css" />
+    <link rel="stylesheet" href="/stylesheets/bootstrap.css"  type="text/css" />
+    <link rel="stylesheet" href="/stylesheets/font-awesome.min.css"  type="text/css" />
+    <link rel="stylesheet" href="/stylesheets/font-awesome.css"  type="text/css" />
+    <link rel="stylesheet" href="/stylesheets/animate.min.css"  type="text/css" />
+    <link rel="stylesheet" href="/stylesheets/stylechatlib.css"  type="text/css" />
+
+
+  </head>
+  <body>
+    <div class="container">
+      <div class="navbar navbar-default">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Chat</a>
+        </div>
+        <div class="navbar-collapse collapse navbar-right">
+          <ul class="nav navbar-nav">
+            <li>
+              <a href="/users">
+                <i class="fa fa-comment"></i>  Chat
+              </a>
+            </li>
+            <li>
+              <a href="">
+                <i class="fa fa-gear"></i> My Profile
+              </a>
+            </li>
+            <li>
+              <a href="/logout"><i class="fa fa-power-off"></i> Log Out
+              </a>
+            </li>   
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+      <div class="row" >    
+        <div class="col-lg-12 text-center ">
+          <form class="form-horizontal col-md-12 text-center loginNewMemberForm" action="" method="POST">
+            <div class="title">
+              <span><i class="fa fa-search"></i> Search</span>
+            </div>
+            <div class="row">
+              <div class="col-xs-5 text-right control lbl">Friendname</div>
+              <div class="col-xs-7 text-left  control">
+                <input type="text" name="username" id="username" class="username form-control" placeholder="Username">
+              </div>
+              
+            </div>
+            <div class="row">
+              <div class="col-xs-12 text-center">
+                <input type="submit" class="btn btn-success btn-lg" value="Search!">
+              </div>
+            </div>
+            <br>
+          </form>
+        </div>
+      </div>
+      <div class="search-list">
+        <ul class="list-group">
+          <% for (var i in result) { %>
+            <li class="list-group-item">
+                <%=result[i]%>
+                <a>
+                  <i class="fa fa-plus-circle" onclick="clickajax(<%=AccountID%>,'<%=result[i]%>')"></i>
+                </a>
+            </li>
+          <% }%>
+        </ul>
+      </div>
+    </div>
+    <script src="/javascripts/jquery.min.js"></script>
+    <script src="/javascripts/bootstrap.min.js"></script>
+    <script type="text/javascript">
+      function clickajax(accountid,friendname){
+        
+        $.post("/searchfriend/add",{accountid: accountid,friendname:friendname}, function(data){
+            if(data.result==true)
+              {
+                alert("add success");
+              }
+            else
+              alert("fail");
+          });
+      }
+    </script>
+  </body>
+</html>

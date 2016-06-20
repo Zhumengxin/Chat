@@ -4,63 +4,130 @@
     <title>Chat</title>
     <link rel="stylesheet" href="/stylesheets/style.css"  type="text/css" />
     <link rel="stylesheet" href="/stylesheets/bootstrap.css"  type="text/css" />
+    <link rel="stylesheet" href="/stylesheets/font-awesome.min.css"  type="text/css" />
+    <link rel="stylesheet" href="/stylesheets/font-awesome.css"  type="text/css" />
+    <link rel="stylesheet" href="/stylesheets/animate.min.css"  type="text/css" />
+    <link rel="stylesheet" href="/stylesheets/stylechatlib.css"  type="text/css" />
+
 
   </head>
   <body>
     <div class="container">
-      <div class="row">
-        <div class="col-lg-2 col-md-2" >
-          <div class="row">
-            <div class="col-lg-4">
-              <img class=" portrait"src="/images/portrait.png"/>
-            </div>
-            <div id="from" class="col-lg-8 master-name"><%= AccountID %>
-            </div>
-          </div>
-          <div class="friend_list panel-group" id="accordion">
-             <div class="panel panel-default">
-              <div class="panel-heading">
-                <h1 class="panel-title">
-                  <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                    friend
-                  </a>
-                </h1>
-              </div>
-              <div id="collapseOne" class="panel-collapse collapse in">
-                <div >
-                    <ul class="list-group">
-                        <li class="list-group-item"><%= Group[0]%></li>
-                        <li class="list-group-item">ads</li>
-                        <li class="list-group-item">ads</li>
-                    </ul>
-                </div>
-              </div>
-            </div>
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h1 class="panel-title">
-                  <a data-toggle="collapse" data-parent="#accordion" href="#collapsetwo">
-                    family
-                  </a>
-                </h1>
-              </div>
-              <div id="collapsetwo" class="panel-collapse collapse in">
-                <div >
-                    <ul class="list-group">
-                        <li class="list-group-item">ads</li>
-                        <li class="list-group-item">ads</li>
-                        <li class="list-group-item">ads</li>
-                    </ul>
-                </div>
-              </div>
-            </div>
-
-
-          </div>
-
-
+      <div class="navbar navbar-default">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Chat</a>
         </div>
-        <div class="col-lg-10 col-md-10  chatbox">
+        <div class="navbar-collapse collapse navbar-right">
+          <ul class="nav navbar-nav">
+            <li>
+              <a href="/users">
+                <i class="fa fa-comment"></i>  Chat
+              </a>
+            </li>
+            <li>
+              <a href="">
+                <i class="fa fa-gear"></i> My Profile
+              </a>
+            </li>
+            <li>
+              <a href="/logout"><i class="fa fa-power-off"></i> Log Out
+              </a>
+            </li>   
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+      <div class=" col-md-12  chat_box_container ">
+        <div class="row">
+          <div class="connected_container">
+            <div class="panel top-controls">
+                <div class="panel-body row">
+                  <a href="#" class="col-xs-2" title="Preview Page" onclick="prevPage(); return false;">
+                    <i class="fa fa-chevron-left fa-3x"></i>
+                  </a>
+                  <a href="#" class="col-xs-2" title="1st page of connected users" onclick="home(); return false;">
+                    <i class="fa fa-home fa-3x"></i>
+                  </a>
+                  <a href="#" class="col-xs-2 messages" title="Inbox" onclick="getInbox(); return false;" style="color: rgb(66, 139, 202);">
+                    <i class="fa fa-envelope fa-3x"></i>
+                  </a>
+                  <a href="#" class="col-xs-2 gold" title="Search" onclick="getSearchForm(); return false;">
+                    <i class="fa fa-search fa-3x"></i>
+                  </a>
+                  <a href="/searchfriend" class="col-xs-2 gold" title="AddFriend">
+                    <i class="fa fa-plus fa-3x"></i>
+                  </a>
+                  <a href="#" class="col-xs-2" title="Next Page" onclick="nextPage(); return false;">
+                    <i class="fa fa-chevron-right fa-3x"></i>
+                  </a>
+                </div>
+            </div>
+            <div class="list-group connected_users">
+              <h4 class="text-center"><i class="fa fa-home"></i> 
+              <% 
+              //console.log("hello");
+              //console.log(groupidarray[0]);
+              //console.log(groupname.get(groupidarray[0]+""));
+              //console.log(friendlist.get('1')[0].id) 
+
+              %>
+              </h4>
+              <ul id="accordion" class="accordion">
+                <% 
+                  for (var i in groupidarray) { %>
+                <li>
+                  <div class="link"><i class="fa fa-paint-brush"></i>
+                    <%= groupname.get(groupidarray[i]+"") %><i class="fa fa-chevron-down"></i>
+                  </div>
+                  <ul class="submenu">
+                    <%  var friend = friendlist.get(groupidarray[i]+""); 
+                      for (var j in friend) { %>
+                    <li>
+                      <a href="#" onclick="chatWithMe(this); return false;" data-id="25819490" data-age="29" data-username="yoo yooo" data-city="Anhui" data-country="China" data-sexe="female" class="list-group-item femme">
+                        <h4 class="list-group-item-heading"><%= friend[j].id %></h4>
+                        <p class="list-group-item-text"><%= friend[j].name %></p>
+                        <i class="fa fa-chevron-right"></i>
+                      </a>
+                    </li>
+                    <% } %>
+                  </ul>
+                </li>
+                <% } %>
+              </ul>
+      
+      
+            </div>
+            <div class="panel bottom-controls">
+              <div class="panel-body row">
+                <div class="col-xs-3 text-left">
+                  zprize     
+                </div>
+                <div class="col-xs-2">
+                  <a href="#" class="col-xs-2" alt="Previous Page" onclick="prevPage(); return false;">
+                    <i class="icon-chevron-left icon-2x"></i>
+                  </a>
+                </div>
+                <div class="col-xs-2">
+                  <a href="#" class="col-xs-2" title="Refresh Users List" onclick="refresh(); return false;">
+                    <i class="icon-refresh icon-2x"></i>
+                  </a>
+                </div>      
+                <div class="col-xs-2">
+                  <a href="#" class="col-xs-2" title="Next Page" onclick="nextPage(); return false;">
+                    <i class="icon-chevron-right icon-2x"></i>
+                  </a>
+                </div>      
+                <div class="col-xs-3 text-right">
+                  Page 1/<span class="totalPages">254</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-10 col-md-10  chatbox">
           <div class="chatname">
             <font size="4">Zprinze</font>
             <p style="display:none">123</p>
@@ -77,6 +144,7 @@
               <textarea id="m" class="form-control" rows="3"></textarea>
               <button class="btn btn-default button_style" align="center" >Send</button>
             </form>
+          </div>
           </div>
         </div>
       </div>
@@ -104,5 +172,6 @@
         $('#messages').append('<li class="left_message">'+data.message+'</li>');
       });
     </script>
+    <script src="/javascripts/collapse.js"></script>
   </body>
 </html>

@@ -3,7 +3,10 @@ var router = express.Router();
 var User = require('../models/user');
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index',{title : 'Express', 
+    if(req.session.user){
+        return res.redirect("users");
+    }
+    res.render('index',{title : 'Express', 
                       error : ''  
                         });
 });
@@ -33,9 +36,10 @@ router.route('/')
                     console.log('Login Success!');
                   
                     req.session.user = user.AccountID.toString();
+                    req.session.name = user.AccountName.toString();
                     //req.session.name = user.AccountName.toString();
                     //console.log(user.AccountID);
-                    res.redirect('/users?accountid='+user.AccountID);
+                    res.redirect('/users');
                     
                 } else {
                     var err = "用户密码错误！";
@@ -51,8 +55,9 @@ router.route('/')
                             if (req.body.Loginpass === user.Password) {
                                 console.log('Login Success!');
                                 req.session.user = user.AccountID.toString();
+                                req.session.name = user.AccountName.toString();
                                     //console.log(user.AccountID);
-                                res.redirect('/users?accountid='+user.AccountID);
+                                res.redirect('/users');
                                 
                             } else {
                                 var err = "用户密码错误！";

@@ -76,6 +76,35 @@
         </ul>
       </div>
     </div>
+    <button class="btn btn-primary btn-lg chuangkou" data-toggle="modal" 
+   data-target="#myModal" style="display:none">
+    </button>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" 
+   aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" 
+               data-dismiss="modal" aria-hidden="true">
+                  &times;
+        </button>
+        <h4 class="modal-title" id="myModalLabel">
+              Chat
+        </h4>
+      </div>
+      <div class="modal-body">
+            you have add friend successfully!
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">
+               OK
+        </button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal -->
+
+
+
     <script src="/javascripts/jquery.min.js"></script>
     <script src="/javascripts/bootstrap.min.js"></script>
     <script type="text/javascript">
@@ -84,7 +113,8 @@
         $.post("/searchfriend/add",{accountid: accountid,friendname:friendname}, function(data){
             if(data.result==true)
               {
-                alert("add success");
+                //alert("add success");
+                $(".chuangkou").click();
               }
             else
               alert("fail");

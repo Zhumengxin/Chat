@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE HTML>
 <html>
   <head>
     <title>Chat</title>
@@ -9,10 +9,8 @@
     <link rel="stylesheet" href="/stylesheets/animate.min.css"  type="text/css" />
     <link rel="stylesheet" href="/stylesheets/stylechatlib.css"  type="text/css" />
     <link rel="stylesheet" href="/stylesheets/smartMenu.css"  type="text/css" />
-
-
-
   </head>
+
   <body>
     <div class="container">
       <div class="navbar navbar-default">
@@ -39,7 +37,7 @@
             <li>
               <a href="/logout"><i class="fa fa-power-off"></i> Log Out
               </a>
-            </li>   
+            </li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -69,24 +67,24 @@
                 </div>
             </div>
             <div class="list-group connected_users">
-              <h4 class="text-center"><i class="fa fa-home"></i> 
-              <% 
+              <h4 class="text-center"><i class="fa fa-home"></i>
+              <%
               //console.log("hello");
               //console.log(groupidarray[0]);
               //console.log(groupname.get(groupidarray[0]+""));
-              //console.log(friendlist.get('1')[0].id) 
+              //console.log(friendlist.get('1')[0].id)
 
               %>
               </h4>
               <ul id="accordion" class="accordion">
-                <% 
+                <%
                   for (var i in groupidarray) { %>
                 <li>
-                  <div class="link"><i class="fa fa-paint-brush"></i>
+                  <div id="groupSubMenu" class="link"><i class="fa fa-paint-brush"></i>
                     <%= groupname.get(groupidarray[i]+"") %><i class="fa fa-chevron-down"></i>
                   </div>
-                  <ul class="submenu">
-                    <%  var friend = friendlist.get(groupidarray[i]+""); 
+                  <ul id="userSubMenu" class="submenu">
+                    <%  var friend = friendlist.get(groupidarray[i]+"");
                       for (var j in friend) { %>
                     <li>
                       <a href="#" onclick="chatWithMe(this); return false;" data-id="25819490" data-age="29" data-username="yoo yooo" data-city="Anhui" data-country="China" data-sexe="female" class="list-group-item femme">
@@ -100,13 +98,13 @@
                 </li>
                 <% } %>
               </ul>
-      
-      
+
+
             </div>
             <div class="panel bottom-controls">
               <div class="panel-body row">
                 <div class="col-xs-3 text-left">
-                  zprize     
+                  zprize
                 </div>
                 <div class="col-xs-2">
                   <a href="#" class="col-xs-2" alt="Previous Page" onclick="prevPage(); return false;">
@@ -117,12 +115,12 @@
                   <a href="#" class="col-xs-2" title="Refresh Users List" onclick="refresh(); return false;">
                     <i class="icon-refresh icon-2x"></i>
                   </a>
-                </div>      
+                </div>
                 <div class="col-xs-2">
                   <a href="#" class="col-xs-2" title="Next Page" onclick="nextPage(); return false;">
                     <i class="icon-chevron-right icon-2x"></i>
                   </a>
-                </div>      
+                </div>
                 <div class="col-xs-3 text-right">
                   Page 1/<span class="totalPages">254</span>
                 </div>
@@ -136,13 +134,13 @@
           </div>
           <div>
             <ul id="messages" class="chat-thread">
-          
+
 
             </ul>
           </div>
           <div class= "input_form">
             <form action="" method="post" class="form">
-              
+
               <textarea id="m" class="form-control" rows="3"></textarea>
               <button class="btn btn-default button_style" align="center" >Send</button>
             </form>
@@ -155,11 +153,6 @@
     <script src="/javascripts/jquery.min.js"></script>
     <script src="/javascripts/bootstrap.min.js"></script>
     <script src="/javascripts/jquery-smartMenu.js"></script>
-    <script type="text/javascript">
-
-      $(选择器).smartMenu(data, options);
-
-    </script>
     <script>
       var socket = io();
       var from;
@@ -167,18 +160,62 @@
       socket.emit('new user',from);
       var to = 2;
       $('form').submit(function(){
-       
-       
         socket.emit('private message', from, to, $('#m').val());
         $('#messages').append($('<li class="right_message">').text($('#m').val()));
         $('#m').val('');
-
         return false;
       });
       socket.on('to:'+from, function(data){
         console.log(data);
         $('#messages').append('<li class="left_message">'+data.message+'</li>');
       });
+    </script>
+
+    <!-- smartmenu -->
+    <script>
+        var userMenuData = [
+            [{
+                text: "CHAT",
+                func: function() {
+                    $(this).css("padding", "10px");
+                }
+            }, {
+                text: "DELETE",
+                func: function() {
+                    $(this).css("padding", "10px");
+                }
+            }, {
+                text: "GROUP",
+                func: function() {
+                    $(this).css("background-color", "#beceeb");
+                }
+            }]
+        ];
+        var groupMenuData = [
+            [{
+                text: "ADD",
+                func: function() {
+                    $(this).css("padding", "10px");
+                }
+            }, {
+                text: "DELETE",
+                func: function() {
+                    $(this).css("padding", "10px");
+                }
+            }, {
+                text: "RENAME",
+                func: function() {
+                    $(this).css("background-color", "#beceeb");
+                }
+            }]
+        ];
+        $("#groupSubMenu").smartMenu(groupMenuData, {
+            name: "group"
+        });
+        $("#userSubMenu").smartMenu(userMenuData, {
+            name: "user"
+        });
+
     </script>
     <script src="/javascripts/collapse.js"></script>
   </body>

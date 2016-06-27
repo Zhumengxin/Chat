@@ -264,19 +264,22 @@ User.GetFriend = function getfriend(accountid,callback){
                     if(group.length != 0){
                        // console.log("2");
                         //console.log(groupid);
-                        groupid_string = groupid.toString();
                         friendlist.set(groupid_string,group);
+                        groupid_string = groupid.toString();
                         group = [];
                         groupid = results[i].GroupID;
                         group.push({'id':results[i].SlaveID,'name':results[i].FriendName});
+
                     }
                     else{
                        // console.log("3");
-                       // groupid = results[i].GroupID;
+                        groupid = results[i].GroupID;
+                        groupid_string = groupid.toString();
                         console.log(groupid);
                         group.push({'id':results[i].SlaveID,'name':results[i].FriendName});
                     }
                 }
+
             }
             friendlist.set(groupid_string,group);
             //

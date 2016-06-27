@@ -40,13 +40,13 @@ body{
           <section class="login_content">
             <div class='form'>
             <form class="form-horizontal" action="" method='post'>
-              <h1>Login</h1>
+              <h1>You Chat</h1>
 
               <div class="form-group">
                     <div class="col-xs-12  ">
                         <div class="input-group">
                            <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-                             <input type="text" class="form-control" name="Loginuser" id="username" placeholder="用户名" autocomplete="off" />
+                             <input type="text" class="form-control" name="Loginuser" id="username" placeholder="username/email" autocomplete="off" />
                         </div>
                     </div>
                 </div>
@@ -54,12 +54,12 @@ body{
                     <div class="col-xs-12  ">
                         <div class="input-group">
                             <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-                            <input type="password" class="form-control" name="Loginpass" id="password" placeholder="密码" autocomplete="off" />
+                            <input type="password" class="form-control" name="Loginpass" id="password" placeholder="password" autocomplete="off" />
                         </div>
                     </div>
                 </div>
               <div class="form-group form-actions">
-                    <div class="col-lg-12  ">
+                    <div class="col-lg-12  col-md-12 col-sm-12" align="center">
                         <button type="submit" class="btn btn-priamry btn-block btn-info"> &nbsp;Login&nbsp;</button>
                     </div>
               </div>
@@ -69,7 +69,7 @@ body{
                         <p class="text-center remove-margin"><small>Not having an account yet?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</small> <a href="/register" ><small>Register now!</small></a>
                         </p>
                     </div>
-                    <p align="center"><font color="red"><%= error %></font></p>
+                    <div align="center"><font color="red"><%= error %></font></div>
                 </div>
 
               <div class="clearfix"></div>
@@ -80,7 +80,7 @@ body{
 
 
                 <div>
-                  <h1><span class="glyphicon glyphicon-leaf" style="font-size: 26px;"></span> Chat</h1>
+                  <h1><span class="glyphicon glyphicon-leaf" style="font-size: 26px;"></span>You Chat</h1>
                 </div>
               </div>
             </form>

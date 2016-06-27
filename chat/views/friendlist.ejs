@@ -20,7 +20,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/">Chat</a>
+          <a class="navbar-brand" href="/">You Chat</a>
         </div>
         <div class="navbar-collapse collapse navbar-right">
           <ul class="nav navbar-nav">
@@ -80,17 +80,19 @@
                 <%
                   for (var i in groupidarray) { %>
                 <li>
-                  <div id="groupSubMenu" class="link"><i class="fa fa-paint-brush"></i>
+                  <div id="groupSubMenu" class="link groupSubMenu"><i class="fa fa-users"></i>
                     <%= groupname.get(groupidarray[i]+"") %><i class="fa fa-chevron-down"></i>
                   </div>
-                  <ul id="userSubMenu" class="submenu">
+                  <ul id="userSubMenu" class="submenu userSubMenu">
                     <%  var friend = friendlist.get(groupidarray[i]+"");
+                    console.log(groupidarray);
+                    console.log("dog");
+                    console.log(friendlist);
                       for (var j in friend) { %>
                     <li>
-                      <a href="#" onclick="chatWithMe(this); return false;" data-id="25819490" data-age="29" data-username="yoo yooo" data-city="Anhui" data-country="China" data-sexe="female" class="list-group-item femme">
-                        <h4 class="list-group-item-heading"><%= friend[j].id %></h4>
+                      <a href="/chat?friendid=<%= friend[j].id %>"  data-id="25819490" data-age="29" data-username="yoo yooo" data-city="Anhui" data-country="China" data-sexe="female" class="list-group-item femme">
                         <p class="list-group-item-text"><%= friend[j].name %></p>
-                        <i class="fa fa-chevron-right"></i>
+                        <i class="fa fa-chevron-left"></i>
                       </a>
                     </li>
                     <% } %>
@@ -104,7 +106,7 @@
             <div class="panel bottom-controls">
               <div class="panel-body row">
                 <div class="col-xs-3 text-left">
-                  zprize
+                  zmx
                 </div>
                 <div class="col-xs-2">
                   <a href="#" class="col-xs-2" alt="Previous Page" onclick="prevPage(); return false;">
@@ -122,29 +124,19 @@
                   </a>
                 </div>
                 <div class="col-xs-3 text-right">
-                  Page 1/<span class="totalPages">254</span>
+                  Page 1/<span class="totalPages">1</span>
                 </div>
               </div>
             </div>
           </div>
           <div class="col-lg-10 col-md-10  chatbox">
           <div class="chatname">
-            <font size="4">Zprinze</font>
-            <p style="display:none">123</p>
+            <button class="btn btn-primary btn-lg chuangkou" data-toggle="modal" 
+   data-target="#myModal" >
+    </button>
           </div>
-          <div>
-            <ul id="messages" class="chat-thread">
-
-
-            </ul>
-          </div>
-          <div class= "input_form">
-            <form action="" method="post" class="form">
-
-              <textarea id="m" class="form-control" rows="3"></textarea>
-              <button class="btn btn-default button_style" align="center" >Send</button>
-            </form>
-          </div>
+    
+          
           </div>
         </div>
       </div>
@@ -186,6 +178,14 @@
                 }
             }, {
                 text: "GROUP",
+                data: [
+                    [{
+                      text: "college",
+                        func: function() {
+                            funTrGet().hide();
+                        }
+                    }]
+                ],
                 func: function() {
                     $(this).css("background-color", "#beceeb");
                 }
@@ -209,14 +209,42 @@
                 }
             }]
         ];
-        $("#groupSubMenu").smartMenu(groupMenuData, {
+        $(".groupSubMenu").smartMenu(groupMenuData, {
             name: "group"
         });
-        $("#userSubMenu").smartMenu(userMenuData, {
+        $(".userSubMenu").smartMenu(userMenuData, {
             name: "user"
         });
 
     </script>
     <script src="/javascripts/collapse.js"></script>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" 
+   aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" 
+               data-dismiss="modal" aria-hidden="true">
+                  &times;
+        </button>
+        <h4 class="modal-title" id="myModalLabel">
+              You Chat
+        </h4>
+      </div>
+      <div class="modal-body">
+        Please enter you new group name:
+        <input type="text"></input>
+            <!--You have had this friend! Please choose another friend to add!-->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">
+               OK
+        </button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal -->
+</div>
+
+
   </body>
 </html>
